@@ -11,6 +11,10 @@
         <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
 
         <!-- Styles -->
+        <link rel="stylesheet" href="{{url('css/dropzone.css')}}">
+        <script src="{{url('js/dropzone.js')}}"></script>
+
+
         <style>
             html, body {
                 background-color: #fff;
@@ -79,17 +83,35 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    Laravel
+                    Laravel Upload files
                 </div>
 
-                <div class="links">
-                    <a href="https://laravel.com/docs">Documentation</a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
-                </div>
+                <form action="{{ url('/upload') }}" enctype="multipart/form-data" class="dropzone" id="my-dropzone">
+                    {{ csrf_field() }}
+                </form>
+
+
             </div>
         </div>
+
+    <script>
+        Dropzone.options.myDropzone = {
+            paramName: 'file',
+            maxFilesize: 5, // MB
+            maxFiles: 20,
+            acceptedFiles: ".jpeg,.jpg,.png,.gif",
+            {{--init: function() {--}}
+                {{--this.on("success", function(file, response) {--}}
+                    {{--var a = document.createElement('span');--}}
+                    {{--a.className = "thumb-url btn btn-primary";--}}
+                    {{--a.setAttribute('data-clipboard-text','{{url('/uploads')}}'+'/'+response);--}}
+                    {{--a.innerHTML = "copy url";--}}
+                    {{--file.previewTemplate.appendChild(a);--}}
+                {{--});--}}
+            {{--}--}}
+        };
+
+    </script>
+
     </body>
 </html>
